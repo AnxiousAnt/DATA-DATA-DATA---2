@@ -1,0 +1,10 @@
+#N canvas 432 25 932 801 10;
+#X msg 133 132 hello world;
+#X obj 133 173 print;
+#X floatatom 242 132 0 0 0 0 - - -;
+#X text 132 113 message box;
+#X text 240 113 atom box;
+#X text 65 140 outlet -->;
+#X text 176 173 <-- object;
+#X connect 0 0 1 0;
+#X connect 2 0 1 0;

@@ -1,0 +1,938 @@
+Filename,SourceCode
+1.pd,"#N canvas 432 25 932 801 10;
+#X msg 133 132 hello world;
+#X obj 133 173 print;
+#X floatatom 242 132 0 0 0 0 - - -;
+#X text 132 113 message box;
+#X text 240 113 atom box;
+#X text 65 140 outlet -->;
+#X text 176 173 <-- object;
+#X connect 0 0 1 0;
+#X connect 2 0 1 0;
+"
+10.pd,"#N canvas 434 63 729 681 10;
+#X obj 60 254 receive;
+#X obj 60 227 send;
+#X obj 60 308 pack;
+#X obj 116 254 r;
+#X obj 98 227 s;
+#X obj 60 362 timer;
+#X obj 60 92 float;
+#X obj 60 200 select;
+#X obj 60 119 +;
+#X obj 60 146 >=;
+#X obj 60 173 print;
+#X obj 60 281 trigger;
+#X obj 115 93 f;
+#X obj 110 200 sel;
+#X obj 116 281 t;
+#X obj 60 335 unpack;
+#X obj 60 443 pipe;
+#X obj 60 389 delay;
+#X obj 60 416 metro;
+#X text 156 227 wireless message send;
+#X text 156 254 wireless message receive;
+#X text 155 200 test for two equal numbers;
+#X text 156 281 control message order and format;
+#X text 156 308 combine atoms (e.g. \, numbers) into a list;
+#X text 156 335 take a list apart into atoms;
+#X text 155 173 printout;
+#X text 155 119 arithmetic;
+#X text 95 119 (etc.);
+#X text 95 145 (etc.);
+#X text 155 145 comparison;
+#X text 155 92 store a number;
+#X text 156 362 measure elapsed time;
+#X text 156 389 pass a message after delay;
+#X text 156 443 multiple delay;
+#X text 155 416 repeated message;
+"
+11.pd,"#N canvas 434 48 706 717 10;
+#X msg 22 319 bang;
+#X floatatom 307 343 0 0 0 0 - - -;
+#X text 19 37 You can nest entire windows inside Pd boxes (and so on
+\, as deep as you wish.) There are two different ways to do it. First
+\, if you just want to add a room to the house \, so to speak \, type
+;
+#N canvas 17 300 422 119 sample-subpatch 0;
+#X text 39 43 this is a subpatch of the main patch.;
+#X restore 22 95 pd sample-subpatch;
+#N canvas 0 22 512 237 eager-adder 0;
+#X obj 22 17 inlet;
+#X obj 78 17 inlet;
+#X obj 22 121 outlet;
+#X obj 78 44 t b f;
+#X obj 22 89 +;
+#X text 15 165 Aside: this shows why \, in Pd and Max \, objects such
+as ""+"" only trigger on their left inlets: it's easy to build up from
+there \, but if more than one inlet were ""hot"" \, you wouldn't be able
+to change both of them without firing the calculation twice.;
+#X text 137 100 Because of the two inlets and the one outlet \, the
+containing box (int eh parent patch) has two inlets and one outlet.
+They respect the left-to-right order of the inlet and outlet objects
+in the subpatch.;
+#X text 137 11 This is a sample subpatch which maintains the sum of
+two inputs \, doing the computation when either input changes. IF it's
+the left input \, the ""+"" object takes care if it \; if the right \,
+the ""trigger"" object first gives the ""+"" the new value \, then ""bangs""
+the right inlet to make ""+"" do the computation.;
+#X connect 0 0 4 0;
+#X connect 1 0 3 0;
+#X connect 3 0 4 0;
+#X connect 3 1 4 1;
+#X connect 4 0 2 0;
+#X restore 125 194 pd eager-adder;
+#X floatatom 125 167 0 0 0 0 - - -;
+#X floatatom 206 167 0 0 0 0 - - -;
+#X floatatom 125 222 0 0 0 0 - - -;
+#X obj 22 343 sendnumber 45 cookies;
+#X msg 161 319 bang;
+#X floatatom 374 343 0 0 0 0 - - -;
+#X obj 307 316 r cookies;
+#X obj 374 316 r pretzels;
+#X text 19 120 If you click on the box (in run mode) the subwindow
+appears. Click on the one below to see how you give a subpatch inlets
+and outlets.;
+#X text 141 95 <-- you can give the window a name as an argument;
+#X obj 161 343 sendnumber 67 pretzels;
+#X text 19 247 There is also a facility for making many copies of a
+patch which track any changes you make in the original. The subpatches
+are called abstractions. For example \, here's a simple abstraction
+that sends a number to a [receive] on command:;
+#X connect 0 0 8 0;
+#X connect 4 0 7 0;
+#X connect 5 0 4 0;
+#X connect 6 0 4 1;
+#X connect 9 0 15 0;
+#X connect 11 0 1 0;
+#X connect 12 0 10 0;
+"
+12.pd,"#N canvas 434 131 641 423 10;
+#X floatatom 22 194 0 0 0 0 - - -;
+#X floatatom 145 194 0 0 0 0 - - -;
+#X text 19 37 You can use dollarsigns in abstractions to get local
+sends and receives as shown here.;
+#X obj 160 101 dollarsign two;
+#X obj 22 166 r one-a;
+#X obj 145 167 r two-a;
+#X floatatom 84 194 0 0 0 0 - - -;
+#X floatatom 208 194 0 0 0 0 - - -;
+#X obj 84 166 r one-b;
+#X obj 208 167 r two-b;
+#X text 19 132 Open both copies to see what's happening...;
+#X floatatom 22 74 0 0 0 0 - - -;
+#X floatatom 103 74 0 0 0 0 - - -;
+#X floatatom 160 75 0 0 0 0 - - -;
+#X floatatom 241 75 0 0 0 0 - - -;
+#X obj 22 100 dollarsign one;
+#X connect 4 0 0 0;
+#X connect 5 0 1 0;
+#X connect 8 0 6 0;
+#X connect 9 0 7 0;
+#X connect 11 0 15 0;
+#X connect 12 0 15 1;
+#X connect 13 0 3 0;
+#X connect 14 0 3 1;
+"
+14.pd,"#N canvas 433 81 607 691 10;
+#N canvas 0 22 450 300 (subpatch) 0;
+#X array array99 100 float 0;
+#X coords 0 1 99 -1 150 100 1;
+#X restore 277 479 graph;
+#X msg 149 237 \; array99 resize \$1;
+#X floatatom 149 214 0 0 0 0 - - -;
+#X floatatom 21 190 0 0 0 0 - - -;
+#X obj 21 214 / 100;
+#X msg 21 237 \; array99 const \$1;
+#X text 18 167 You can send messages to an array object:;
+#X msg 286 237 \; array99 print;
+#X text 64 192 <-- set to a constant value;
+#X text 191 213 resize;
+#X text 295 213 print size;
+#X text 22 378 read a text file;
+#X text 18 446 write a text file;
+#X text 143 446 write a WAV format soundfile;
+#X msg 261 300 \; array99 normalize;
+#X msg 262 337 \; array99 normalize 0.5;
+#X text 259 275 normalize to 1 or otherwise;
+#X obj 216 425 soundfiler;
+#X msg 21 299 \; array99 sinesum 64 0.2 0.2 0.2 0.2;
+#X msg 21 336 \; array99 cosinesum 64 0.2 0.2 0.2 0.2;
+#X text 25 275 Fourier synthesis (resizes table);
+#X text 214 378 read a soundfile;
+#X msg 216 402 read ../sound/voice2.wav array99;
+#X text 19 37 Arrays in Pd provide a unified way to deal with lists
+of numbers \, treating them as either audio samples or for ""control""
+uses. To make one \, select ""array"" on the ""new"" menu. Dialogs appear
+to help you choose the name \, number of elements \, and various flags.
+;
+#X msg 21 398 \; array99 read 15.file.txt;
+#X obj 21 469 bng 15 250 50 0 empty empty empty 0 -6 0 8 -262144 -1
+-1;
+#X obj 21 487 savepanel;
+#X msg 21 520 \; array99 write \$1;
+#X obj 145 468 bng 15 250 50 0 empty empty empty 0 -6 0 8 -262144 -1
+-1;
+#X obj 145 487 savepanel;
+#X obj 145 533 soundfiler;
+#X msg 145 510 write \$1 array99;
+#X connect 2 0 1 0;
+#X connect 3 0 4 0;
+#X connect 4 0 5 0;
+#X connect 22 0 17 0;
+#X connect 25 0 26 0;
+#X connect 26 0 27 0;
+#X connect 28 0 29 0;
+#X connect 29 0 31 0;
+#X connect 31 0 30 0;
+"
+15.pd,"#N canvas 434 47 640 692 10;
+#N canvas 0 22 450 300 (subpatch) 0;
+#X array array99 5 float 0;
+#X array array98 7 float 0;
+#X coords 0 1 6 -1 150 90 1;
+#X restore 211 484 graph;
+#X msg 22 182 \; array99 rename george;
+#X msg 196 182 \; george rename array99;
+#X msg 247 128 \; array99 3 -0.5 0.5;
+#X text 22 162 renaming an array:;
+#X text 21 219 setting the bounds rectangle:;
+#X msg 23 239 \; array99 bounds 0 -2 10 2;
+#X msg 210 239 \; array99 bounds 0 -1 5 1;
+#X msg 23 315 \; array99 xticks 0 1 1;
+#X msg 176 314 \; array99 yticks 0 0.1 5;
+#X text 20 273 adding x and y labels: give a point to put a tick \,
+the interval between ticks \, and the number of ticks overall per large
+tick.;
+#X msg 19 382 \; array99 xlabel -1.1 0 1 2 3 4 5;
+#X text 16 351 adding labels. Give a y value and a bunch of x values
+or vice versa:;
+#X msg 22 128 \; array98 0 -1 1 -1 1 -1 1 -1 1 -1;
+#X msg 239 382 \; array99 ylabel 5.15 -1 0 1;
+#X text 19 31 Arrays have methods to set their values explicitly \;
+to set their ""bounds"" rectangles \, to rename them (but if you have
+two with the same name this won't necessarily do what you want) and
+to add markings. To set values by message \, send a list whise first
+element gives the index to start at. The second example sets two values
+starting at index three. Indices count up from zero.;
+#X text 17 417 You can also change x and y range and size in the ""properties""
+dialog. Note that information about size and ranges is saved \, but
+ticks \, labels \, and the actual data are lost between Pd sessions.
+;
+"
+16.pd,"#N canvas 425 107 764 573 10;
+#X floatatom 93 94 0 0 0 0 - - -;
+#X floatatom 57 94 0 0 0 0 - - -;
+#X obj 21 67 notein;
+#X floatatom 21 93 0 0 0 0 - - -;
+#X floatatom 213 96 0 0 0 0 - - -;
+#X floatatom 177 96 0 0 0 0 - - -;
+#X floatatom 141 95 0 0 0 0 - - -;
+#X obj 141 69 ctlin;
+#X floatatom 304 95 0 0 0 0 - - -;
+#X floatatom 268 94 0 0 0 0 - - -;
+#X obj 268 68 bendin;
+#X floatatom 314 133 0 0 0 0 - - -;
+#X floatatom 270 132 0 0 0 0 - - -;
+#X obj 270 162 bendout;
+#X text 19 38 Pd offers input and output objects for MIDI:;
+#X text 329 162 ... ad nauseam.;
+#X obj 21 260 midiout;
+#X obj 174 295 sysexin;
+#X msg 21 230 240 \, 45 \, 93 \, 3 \, 65 \, 1 \, 2 \, 3 \, 4 \, 247
+;
+#X text 18 202 You can format your own SYSEX messages as shown:;
+#X text 18 293 and receive SYSEX via:;
+#X connect 2 0 3 0;
+#X connect 2 1 1 0;
+#X connect 2 2 0 0;
+#X connect 7 0 6 0;
+#X connect 7 1 5 0;
+#X connect 7 2 4 0;
+#X connect 10 0 9 0;
+#X connect 10 1 8 0;
+#X connect 11 0 13 1;
+#X connect 12 0 13 0;
+#X connect 18 0 16 0;
+"
+17.pd,"#N canvas 434 130 679 691 10;
+#X obj 23 158 select 1 2;
+#X floatatom 23 130 0 0 0 0 - - -;
+#X obj 23 235 print select-1;
+#X obj 51 208 print select-2;
+#X obj 80 181 print select-3;
+#X floatatom 243 150 0 0 0 0 - - -;
+#X obj 243 183 pack;
+#X obj 243 207 route 1 2;
+#X obj 273 151 t b f;
+#X floatatom 273 127 0 0 0 0 - - -;
+#X obj 294 235 unpack;
+#X floatatom 243 235 0 0 0 0 - - -;
+#X floatatom 268 235 0 0 0 0 - - -;
+#X floatatom 294 258 0 0 0 0 - - -;
+#X floatatom 327 256 0 0 0 0 - - -;
+#X floatatom 24 330 0 0 0 0 - - -;
+#X obj 24 355 spigot;
+#X floatatom 57 330 0 0 0 0 - - -;
+#X floatatom 24 379 0 0 0 0 - - -;
+#X text 87 331 <-- nonzero to open;
+#X text 56 379 if open \, messages coming in at left are sent to output.
+;
+#X floatatom 171 440 0 0 0 0 - - -;
+#X floatatom 171 489 0 0 0 0 - - -;
+#X obj 171 465 moses 5;
+#X floatatom 210 489 0 0 0 0 - - -;
+#X text 20 283 You also get [spigot] which turns a flow of messages
+on and off (like the [gate] object in Max \, but with the inputs reversed):
+;
+#X text 21 405 And finally \, [moses] sends numbers to the left if
+they're less than the argument \, right otherwise:;
+#X text 20 38 Pd provides at least four objects for doing conditional
+computations. The [select] object tests its input against its argument(s)
+\, and outputs a ""bang"" when they match. The [route] object works similarly
+but also copies data. In other words \, [route] takes a list \, tests
+its first element \, and conditionally passes on the rest of the list.
+;
+#X connect 0 0 2 0;
+#X connect 0 1 3 0;
+#X connect 0 2 4 0;
+#X connect 1 0 0 0;
+#X connect 5 0 6 0;
+#X connect 6 0 7 0;
+#X connect 7 0 11 0;
+#X connect 7 1 12 0;
+#X connect 7 2 10 0;
+#X connect 8 0 6 0;
+#X connect 8 1 6 1;
+#X connect 9 0 8 0;
+#X connect 10 0 13 0;
+#X connect 10 1 14 0;
+#X connect 15 0 16 0;
+#X connect 16 0 18 0;
+#X connect 17 0 16 1;
+#X connect 21 0 23 0;
+#X connect 23 0 22 0;
+#X connect 23 1 24 0;
+"
+18.pd,"#N canvas 434 160 709 659 10;
+#X obj 22 112 random 5;
+#X msg 22 86 bang;
+#X floatatom 22 138 0 0 0 0 - - -;
+#X text 56 138 outputs from 0 to 4;
+#X msg 207 86 bang;
+#X floatatom 207 164 0 0 0 0 - - -;
+#X obj 207 112 random 1000;
+#X obj 207 140 / 1000;
+#X text 235 165 from 0 to 0.999;
+#X obj 21 319 random 5;
+#X msg 92 232 bang;
+#X floatatom 21 345 0 0 0 0 - - -;
+#X obj 21 232 loadbang;
+#X obj 21 262 timer;
+#X text 134 232 <-- click to seed;
+#X msg 21 287 seed \$1;
+#X msg 83 287 bang;
+#X text 124 288 <-- click to get random numbers;
+#X text 18 191 If you don't want the same behavior every time you run
+the patch \, use the time from load to first click as a seed:;
+#X text 19 37 Use the [random] object to make pseudo-random integers.
+To get continuously variable random numbers \, make a random number
+in a large range and divide:;
+#X connect 0 0 2 0;
+#X connect 1 0 0 0;
+#X connect 4 0 6 0;
+#X connect 6 0 7 0;
+#X connect 7 0 5 0;
+#X connect 9 0 11 0;
+#X connect 10 0 13 1;
+#X connect 12 0 13 0;
+#X connect 13 0 15 0;
+#X connect 15 0 9 0;
+#X connect 16 0 9 0;
+"
+19.pd,"#N canvas 434 154 699 621 10;
+#X msg 123 95 bang;
+#X text 19 37 You can generate weighted random numbers from uniformly
+distributed ones. If you just want two possible outcomes with a varying
+probability for each one \, you can do as shown:;
+#X obj 123 121 random 100;
+#X obj 123 194 bng 20 250 50 0 empty empty empty 0 -6 0 8 -262144 -1
+-1;
+#X obj 168 194 bng 20 250 50 0 empty empty empty 0 -6 0 8 -262144 -1
+-1;
+#X floatatom 168 143 3 0 100 0 - - -;
+#X text 193 143 <-- change probablilty;
+#X obj 123 169 moses 80;
+#X text 172 95 <-- click to test;
+#X text 19 224 This outputs a number at left 80% of the time \, otherwise
+at right \, unless you override the ""80"" using the number box. You
+may extend this to more than two possible outcomes \, for instance
+like this:;
+#X msg 106 282 bang;
+#X obj 106 308 random 100;
+#X obj 106 387 bng 20 250 50 0 empty empty empty 0 -6 0 8 -262144 -1
+-1;
+#X obj 151 387 bng 20 250 50 0 empty empty empty 0 -6 0 8 -262144 -1
+-1;
+#X text 155 280 <-- click to test;
+#X obj 106 336 moses 10;
+#X obj 151 360 moses 30;
+#X obj 196 387 bng 20 250 50 0 empty empty empty 0 -6 0 8 -262144 -1
+-1;
+#X text 104 410 10%;
+#X text 149 410 20%;
+#X text 198 409 70%;
+#X connect 0 0 2 0;
+#X connect 2 0 7 0;
+#X connect 5 0 7 1;
+#X connect 7 0 3 0;
+#X connect 7 1 4 0;
+#X connect 10 0 11 0;
+#X connect 11 0 15 0;
+#X connect 15 0 12 0;
+#X connect 15 1 16 0;
+#X connect 16 0 13 0;
+#X connect 16 1 17 0;
+"
+2.pd,"#N canvas 434 62 812 823 10;
+#X floatatom 38 314 0 0 0 0 - - -;
+#X floatatom 149 315 0 0 0 0 - - -;
+#X floatatom 38 213 0 0 0 0 - - -;
+#X floatatom 180 164 0 0 0 0 - - -;
+#X floatatom 180 112 0 0 0 0 - - -;
+#X floatatom 215 112 0 0 0 0 - - -;
+#X obj 180 140 +;
+#X obj 38 277 *;
+#X obj 149 278 -;
+#X obj 38 236 trigger float float;
+#X text 82 133 hot inlet --->;
+#X text 215 133 <--- cold inlet;
+#X text 186 235 others) and copies its input to its;
+#X text 185 248 outlets \, in the requested forms \, in;
+#X text 185 261 right-to-left order. Hook it to two;
+#X text 185 274 inputs without crossing the wires and;
+#X text 186 287 you get the expected result. Cross the;
+#X text 181 300 wires and you get a memory effect.;
+#X text 186 222 of ""bang"" and ""float"" arguments (among;
+#X text 186 209 The [trigger] object takes any number;
+#X text 64 316 <-- square;
+#X text 177 316 <-- first difference;
+#X text 37 24 In Pd \, most objects carry out their functions when
+they get messages in their leftmost inlets. Other inlets are for storing
+values that can modify the next action. The [+] object below sends
+output only when the left-hand input changes. For this reason the leftmost
+inlet is called the ""hot"" \, or active \, inlet \, while the storage
+inlets are called ""cold"" inlets.;
+#X connect 2 0 9 0;
+#X connect 4 0 6 0;
+#X connect 5 0 6 1;
+#X connect 6 0 3 0;
+#X connect 7 0 0 0;
+#X connect 8 0 1 0;
+#X connect 9 0 7 0;
+#X connect 9 0 8 1;
+#X connect 9 1 7 1;
+#X connect 9 1 8 0;
+"
+20.pd,"#N canvas 434 95 658 593 10;
+#X obj 22 262 bng 15 250 50 0 empty empty empty 20 8 0 8 -262144 -1
+-1;
+#X obj 22 368 bng 15 250 50 0 empty empty empty 20 8 0 8 -262144 -1
+-1;
+#X obj 67 368 bng 15 250 50 0 empty empty empty 20 8 0 8 -262144 -1
+-1;
+#X obj 112 368 bng 15 250 50 0 empty empty empty 20 8 0 8 -262144 -1
+-1;
+#X msg 22 388 1;
+#X msg 67 388 2;
+#X msg 112 388 3;
+#X obj 22 428 s state;
+#X obj 22 153 bng 20 250 50 0 empty empty empty 20 8 0 8 -262144 -1
+-1;
+#X obj 56 153 r state;
+#X obj 22 215 sel 1 2 3;
+#X obj 164 262 bng 15 250 50 0 empty empty empty 20 8 0 8 -262144 -1
+-1;
+#X obj 164 368 bng 15 250 50 0 empty empty empty 20 8 0 8 -262144 -1
+-1;
+#X obj 209 368 bng 15 250 50 0 empty empty empty 20 8 0 8 -262144 -1
+-1;
+#X obj 254 368 bng 15 250 50 0 empty empty empty 20 8 0 8 -262144 -1
+-1;
+#X msg 164 388 1;
+#X msg 209 388 2;
+#X msg 254 388 3;
+#X obj 164 428 s state;
+#X obj 311 262 bng 15 250 50 0 empty empty empty 20 8 0 8 -262144 -1
+-1;
+#X obj 311 368 bng 15 250 50 0 empty empty empty 20 8 0 8 -262144 -1
+-1;
+#X obj 356 368 bng 15 250 50 0 empty empty empty 20 8 0 8 -262144 -1
+-1;
+#X obj 401 368 bng 15 250 50 0 empty empty empty 20 8 0 8 -262144 -1
+-1;
+#X msg 311 388 1;
+#X msg 356 388 2;
+#X msg 401 388 3;
+#X obj 311 428 s state;
+#X msg 145 153 \; state 1;
+#X obj 22 189 f 1;
+#X obj 22 287 random 100;
+#X obj 22 314 moses 30;
+#X obj 67 341 moses 60;
+#X obj 164 286 random 100;
+#X obj 164 314 moses 10;
+#X obj 209 341 moses 60;
+#X obj 311 286 random 100;
+#X obj 311 314 moses 70;
+#X obj 356 341 moses 80;
+#X floatatom 56 178 3 0 0 0 - - -;
+#X text 150 135 reset;
+#X text 19 135 STEP;
+#X text 19 37 Here is how to construct a simple \, three-valued Markov
+chain using [random]. Each time you click on ""step"" the previous output
+(""state"") determines which of three random networks to invoke \, each
+having a different probability distribution for the next value of ""state.""
+For instance if the state was 3 \, the next state will be 1 70% of
+the time \, state 2 10% \, and state 3 20%.;
+#X connect 0 0 29 0;
+#X connect 1 0 4 0;
+#X connect 2 0 5 0;
+#X connect 3 0 6 0;
+#X connect 4 0 7 0;
+#X connect 5 0 7 0;
+#X connect 6 0 7 0;
+#X connect 8 0 28 0;
+#X connect 9 0 28 1;
+#X connect 9 0 38 0;
+#X connect 10 0 0 0;
+#X connect 10 1 11 0;
+#X connect 10 2 19 0;
+#X connect 11 0 32 0;
+#X connect 12 0 15 0;
+#X connect 13 0 16 0;
+#X connect 14 0 17 0;
+#X connect 15 0 18 0;
+#X connect 16 0 18 0;
+#X connect 17 0 18 0;
+#X connect 19 0 35 0;
+#X connect 20 0 23 0;
+#X connect 21 0 24 0;
+#X connect 22 0 25 0;
+#X connect 23 0 26 0;
+#X connect 24 0 26 0;
+#X connect 25 0 26 0;
+#X connect 28 0 10 0;
+#X connect 29 0 30 0;
+#X connect 30 0 1 0;
+#X connect 30 1 31 0;
+#X connect 31 0 2 0;
+#X connect 31 1 3 0;
+#X connect 32 0 33 0;
+#X connect 33 0 12 0;
+#X connect 33 1 34 0;
+#X connect 34 0 13 0;
+#X connect 34 1 14 0;
+#X connect 35 0 36 0;
+#X connect 36 0 20 0;
+#X connect 36 1 37 0;
+#X connect 37 0 21 0;
+#X connect 37 1 22 0;
+"
+21.pd,"#N canvas 434 124 669 682 10;
+#X floatatom 97 297 5 0 0 0 - - -;
+#X obj 118 217 f;
+#X obj 87 275 random 4;
+#X obj 25 275 random 2;
+#X floatatom 34 297 5 0 0 0 - - -;
+#X obj 118 242 t b b f;
+#X obj 25 329 sel 0 1;
+#X obj 142 409 +;
+#X obj 118 163 metro 100;
+#X obj 118 141 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0
+1;
+#X obj 87 329 + 1;
+#X floatatom 224 191 5 0 0 0 - - -;
+#X obj 72 387 *;
+#X msg 25 354 -1;
+#X obj 224 94 moses 0;
+#X obj 263 118 moses 100;
+#X obj 224 118 * -1;
+#X obj 314 141 * -1;
+#X obj 314 163 + 200;
+#X msg 55 354 1;
+#X text 19 37 Random walk generator;
+#X text 138 140 on/off;
+#X text 260 190 output;
+#X text 34 312 sign;
+#X text 96 312 magnitude;
+#X text 174 401 add prev value;
+#X text 174 414 to random increment;
+#X text 222 51 coercion to range 0-100 \; if out of range \, reflect
+;
+#X text 222 74 us back in.;
+#X connect 1 0 5 0;
+#X connect 2 0 0 0;
+#X connect 2 0 10 0;
+#X connect 3 0 4 0;
+#X connect 3 0 6 0;
+#X connect 5 0 3 0;
+#X connect 5 1 2 0;
+#X connect 5 2 7 1;
+#X connect 6 0 13 0;
+#X connect 6 1 19 0;
+#X connect 7 0 14 0;
+#X connect 8 0 1 0;
+#X connect 9 0 8 0;
+#X connect 10 0 12 1;
+#X connect 11 0 1 1;
+#X connect 12 0 7 0;
+#X connect 13 0 12 0;
+#X connect 14 0 16 0;
+#X connect 14 1 15 0;
+#X connect 15 0 11 0;
+#X connect 15 1 17 0;
+#X connect 16 0 11 0;
+#X connect 17 0 18 0;
+#X connect 18 0 11 0;
+#X connect 19 0 12 0;
+"
+22.pd,"#N canvas 434 157 814 643 10;
+#X obj 115 131 r receive1;
+#X obj 201 131 r receive2;
+#X msg 22 85 clear \, add receive1 1 \, add 1000 receive1 0 \, add
+receive2 2 \, add 1000 receive2 0 \, add receive1 3 \, bang;
+#X obj 22 125 qlist;
+#X floatatom 115 156 0 0 0 0 - - -;
+#X floatatom 201 156 0 0 0 0 - - -;
+#X text 19 37 You can use [qlist] or [textfile] objects for sequencing.
+[qlist] is simpler to use than the (more versatile) [textfile].;
+#X connect 0 0 4 0;
+#X connect 1 0 5 0;
+#X connect 2 0 3 0;
+"
+23.pd,"#N canvas 434 35 707 757 10;
+#X obj 140 261 until;
+#X obj 166 234 max 0;
+#X floatatom 166 213 5 0 0 1 times - -;
+#X text 174 189 times;
+#X obj 140 285 print repetition;
+#X msg 140 189 5;
+#X obj 82 464 + 1;
+#X obj 38 464 float;
+#X obj 38 438 until;
+#X obj 38 491 moses 10;
+#X obj 131 460 bang;
+#X obj 38 518 print number;
+#X msg 38 416 bang;
+#X msg 106 416 0;
+#X text 136 415 reset;
+#X text 218 235 make nonnegative;
+#X text 16 355 Conditional loops get started with a ""bang"" to until's
+left inlet. Make sure you stop the loop with a ""bang"" to until's right
+inlet \, otherwise it will try to run forever and Pd will freeze!;
+#X text 17 167 You can perform a counting loop by sending a positive
+number to until:;
+#X text 16 328 (As of version 0.41 \, ""until"" silently interprets negative
+numbers to be equivalent to zero.);
+#X text 16 539 In pseudo-code: ""x=0 \; do print x++ until x>=10"";
+#X text 17 308 In pseudo-code: ""for i = 1 to 5 do print end"";
+#X text 19 32 Looping with the [until] object;
+#X text 19 51 It is sometimes desirable to make a loop without an embedded
+delay (as in 06.more.counters.pd"") but rather to make the entire loop
+take place in the context of a single incoming message. The [until]
+object is provided to make this possible.;
+#X text 18 114 [until] has two modes: It can either run automatically
+for a certain number of times (a ""counting"" loop) or it can run forever
+until stopped through its right inlet (a ""conditional"" loop).;
+#X text 167 460 stop [until] when counter reaches 10;
+#X connect 0 0 4 0;
+#X connect 1 0 0 0;
+#X connect 2 0 1 0;
+#X connect 5 0 0 0;
+#X connect 6 0 7 1;
+#X connect 7 0 6 0;
+#X connect 7 0 9 0;
+#X connect 8 0 7 0;
+#X connect 9 0 11 0;
+#X connect 9 1 10 0;
+#X connect 10 0 8 1;
+#X connect 12 0 8 0;
+#X connect 13 0 7 1;
+"
+3.pd,"#N canvas 434 79 867 675 10;
+#X floatatom 210 123 0 0 0 0 - - -;
+#X floatatom 177 123 0 0 0 0 - - -;
+#X msg 177 71 5 6;
+#X floatatom 115 123 0 0 0 0 - - -;
+#X floatatom 47 123 0 0 0 0 - - -;
+#X text 19 37 Most Pd messages are just numbers or short lists of numbers:
+;
+#X msg 47 70 5;
+#X obj 47 98 + 9;
+#X obj 115 98 +;
+#X obj 177 98 unpack;
+#X msg 271 70 5;
+#X obj 271 122 print;
+#X obj 271 96 pack 34 78;
+#X msg 115 70 5 6;
+#X floatatom 165 345 0 0 0 0 - - -;
+#X obj 165 320 +;
+#X msg 165 271 1.2 3.4;
+#X msg 174 294 5 6;
+#X text 19 167 If you send a list to the leftmost inlet of an object
+with more than one inlet \, the items in the list are spread out over
+the inlets \, as seen in the 5+6 example above.;
+#X connect 2 0 9 0;
+#X connect 6 0 7 0;
+#X connect 7 0 4 0;
+#X connect 8 0 3 0;
+#X connect 9 0 1 0;
+#X connect 9 1 0 0;
+#X connect 10 0 12 0;
+#X connect 12 0 11 0;
+#X connect 13 0 8 0;
+#X connect 15 0 14 0;
+#X connect 16 0 15 0;
+#X connect 17 0 15 0;
+"
+4.pd,"#N canvas 413 76 894 817 10;
+#X msg 37 248 bang;
+#X obj 81 303 + 1;
+#X floatatom 179 124 0 0 0 0 - - -;
+#X msg 132 74 bang;
+#X obj 179 99 + 1;
+#X text 34 224 Here's a timed counter. Hit the ""bang"" to start it...
+;
+#X obj 37 277 metro 500;
+#X msg 83 248 stop;
+#X obj 132 99 float;
+#X obj 37 303 float;
+#X text 113 277 <-- new object: [metro] \, which is a metronome. The
+""500"" means it outputs a bang every 500 milliseconds-- i.e. \, twice
+a second.;
+#X text 26 37 Here's a simple counter. Click repeatedly on the ""bang""
+message to see it work:;
+#X connect 0 0 6 0;
+#X connect 1 0 9 1;
+#X connect 3 0 8 0;
+#X connect 4 0 2 0;
+#X connect 4 0 8 1;
+#X connect 6 0 9 0;
+#X connect 7 0 6 0;
+#X connect 8 0 4 0;
+#X connect 9 0 1 0;
+"
+5.pd,"#N canvas 393 60 744 651 10;
+#X floatatom 127 209 0 0 0 0 - - -;
+#X obj 127 183 + 1;
+#X msg 127 79 bang;
+#X obj 127 131 metro 500;
+#X msg 38 137 stop;
+#X obj 127 157 float;
+#X obj 127 105 trigger bang bang;
+#X msg 226 131 0;
+#X obj 38 111 select 10;
+#X text 255 131 first set value to zero;
+#X text 244 105 initialization is in two steps;
+#X text 225 150 (before starting the metronome);
+#X text 15 162 conditionally;
+#X text 15 179 stop the;
+#X text 16 193 metronome;
+#X text 19 37 Here's a counter that counts from 1 to 10:;
+#X text 164 79 <-- click here to start;
+#X connect 1 0 0 0;
+#X connect 1 0 5 1;
+#X connect 1 0 8 0;
+#X connect 2 0 6 0;
+#X connect 3 0 5 0;
+#X connect 4 0 3 0;
+#X connect 5 0 1 0;
+#X connect 6 0 3 0;
+#X connect 6 1 7 0;
+#X connect 7 0 5 1;
+#X connect 8 0 4 0;
+"
+6.pd,"#N canvas 448 39 679 647 10;
+#X text 19 37 Besides the metronome \, there are three objects for
+dealing with time:;
+#X obj 22 130 print;
+#X msg 22 72 bang;
+#X msg 68 74 stop;
+#X obj 22 102 delay 2000;
+#X msg 156 230 bang;
+#X obj 156 277 timer;
+#X text 89 163 The right inlet can be used to set the time value without
+scheduling any output.;
+#X obj 183 255 delay 123.45;
+#X floatatom 156 302 0 0 0 0 - - -;
+#X obj 22 458 pipe 2000;
+#X floatatom 22 431 0 0 0 0 - - -;
+#X floatatom 22 484 0 0 0 0 - - -;
+#X text 90 100 The [delay] object schedules an event for a future time
+expressed in milliseconds. Unlike in Max \, time values need not be
+integers. If a delay has been scheduled and you ""bang"" it again \,
+it is rescheduled (the previously scheduled output is cancelled).;
+#X text 19 196 The [timer] object \, shown below \, measures the time
+elapsed between its left and right inlets:;
+#X text 85 440 The [pipe] object allocates memory dynamically in order
+to schedule any number of delayed events. The events may hold any collection
+of data (as usual \, for more details you can consult the help window.)
+;
+#X text 60 380 (Important note: unlike most Pd objects \, [timer] has
+a ""hot"" right inlet and a cold left one. It only triggers output when
+it receives a bang to the right-inlet.);
+#X text 19 323 Note that all time calculations are idealized with [timer]--
+they do not show the effects of computation time or OS latency. This
+way you can write deterministic algorithms dealing with time passage.
+;
+#X connect 2 0 4 0;
+#X connect 3 0 4 0;
+#X connect 4 0 1 0;
+#X connect 5 0 6 0;
+#X connect 5 0 8 0;
+#X connect 6 0 9 0;
+#X connect 8 0 6 1;
+#X connect 10 0 12 0;
+#X connect 11 0 10 0;
+"
+7.pd,"#N canvas 400 37 728 674 10;
+#X msg 64 81 1;
+#X obj 81 176 + 1;
+#X obj 163 217 print x1;
+#X obj 64 229 print x3;
+#X obj 98 152 print x2;
+#X obj 163 145 + 1;
+#X obj 163 169 + 1;
+#X obj 163 193 + 1;
+#X obj 64 110 t f f f f;
+#X obj 81 200 print x2;
+#X text 19 37 In Pd \, message passing is depth first \, so that in
+this patch:;
+#X text 104 81 <-- click here;
+#X msg 102 304 1;
+#X text 142 304 <-- maybe you shouldn't click here;
+#X obj 141 334 + 1;
+#X obj 102 333 f;
+#X floatatom 102 365 0 0 0 0 - - -;
+#X text 19 395 ... because the ""depth"" is infinite. The counters you've
+seen always have the message chain terminated somewhere in a cold inlet:
+;
+#X msg 105 448 1;
+#X obj 144 476 + 1;
+#X obj 105 475 f;
+#X floatatom 105 503 0 0 0 0 - - -;
+#X text 145 448 <-- better;
+#X text 19 257 ... you get ""x1"" first \, notwithstanding the fact that
+""x2"" and ""x3"" appear to be closer to the source. This means that you
+shouldn't do this:;
+#X connect 0 0 8 0;
+#X connect 1 0 9 0;
+#X connect 5 0 6 0;
+#X connect 6 0 7 0;
+#X connect 7 0 2 0;
+#X connect 8 0 3 0;
+#X connect 8 1 1 0;
+#X connect 8 2 4 0;
+#X connect 8 3 5 0;
+#X connect 12 0 15 0;
+#X connect 14 0 15 0;
+#X connect 15 0 16 0;
+#X connect 15 0 14 0;
+#X connect 18 0 20 0;
+#X connect 19 0 20 1;
+#X connect 20 0 21 0;
+#X connect 20 0 19 0;
+"
+8.pd,"#N canvas 370 59 847 721 10;
+#X floatatom 22 219 0 0 0 0 - - -;
+#X obj 22 192 receive crackers;
+#X floatatom 164 219 0 0 0 0 - - -;
+#X obj 164 192 receive pickles;
+#X obj 22 159 send crackers;
+#X obj 164 159 send pickles;
+#X obj 293 159 send pickles;
+#X floatatom 293 219 0 0 0 0 - - -;
+#X obj 293 192 receive pickles;
+#X msg 142 308 \; pickles 99 \; crackers 56;
+#X floatatom 22 132 0 0 0 0 - - -;
+#X floatatom 164 132 0 0 0 0 - - -;
+#X floatatom 293 132 0 0 0 0 - - -;
+#X obj 348 434 r crackers;
+#X obj 348 407 s crackers;
+#X text 19 261 You can use the semicolon feature of message boxes to
+address receives \, too. This is useful if you want to do a whole list
+of things:;
+#X text 19 357 The transaction takes place in zero time---i.e. \, if
+you tried to use ""timer"" to measure the time delay between the two
+\, you would get zero.;
+#X text 19 419 [send] and [receive] can be abbreviated [s] and [r]:
+;
+#X text 19 38 The [send] and [receive] objects allow you to make non-local
+connections. These work globally-- you can use them to make two different
+patches intercommunicate if you wish. Any message a [send] gets appears
+at the output of every [receive] of the same name. There can be any
+number of [send] and [receive] objects sharing the same name:;
+#X connect 1 0 0 0;
+#X connect 3 0 2 0;
+#X connect 8 0 7 0;
+#X connect 10 0 4 0;
+#X connect 11 0 5 0;
+#X connect 12 0 6 0;
+"
+9.pd,"#N canvas 424 32 694 737 10;
+#X obj 161 348 print;
+#X msg 30 111 3 \, 4 \, 5;
+#X msg 22 84 3 4 5;
+#X msg 25 322 3 \$1 5;
+#X floatatom 25 295 4 0 0 0 - - -;
+#X msg 161 320 \$2 \$1 5;
+#X msg 161 295 45 67;
+#X msg 239 295 45 67;
+#X floatatom 28 427 4 0 0 0 - - -;
+#X floatatom 63 427 4 0 0 0 - - -;
+#X floatatom 270 201 4 0 0 0 - - -;
+#X floatatom 164 204 4 0 0 0 - - -;
+#X obj 164 177 receive number9;
+#X obj 270 177 receive 9bis;
+#X obj 22 200 print;
+#X msg 43 138 3 \; number9 5 \; 9bis 45;
+#X text 86 111 <-- three separate messages;
+#X text 67 84 <-- one message: the list \, ""3 4 5"".;
+#X text 113 151 <-- three separate messages \, with three destinations.
+;
+#X msg 239 322 \; number9 \$1 \; 9bis \$2;
+#X obj 25 348 print;
+#X text 19 274 one variable:;
+#X text 166 274 two variables:;
+#X text 22 379 But to really exploit the possibilities using multiple
+variables \, you will need the ""pack"" object to get two or more values
+into the same message:;
+#X obj 28 509 print;
+#X obj 28 457 pack 0 0 0;
+#X floatatom 99 427 4 0 0 0 - - -;
+#X msg 28 483 cis \$1 \, boom \$2 \, bah \$3;
+#X text 94 457 <-- creation arguments to ""pack"" set the number of inlets.
+;
+#X text 19 227 You can use ""\$1"" \, ""\$2"" \, etc. \, as variables in
+messages. Send the message box a list whose elements supply the values.
+A number is just a list with one element.;
+#X text 19 37 In addition to using semicolons to separate messages
+\, you can use commas \, which continue a stream of messages to the
+same destination. Thus:;
+#X connect 1 0 14 0;
+#X connect 2 0 14 0;
+#X connect 3 0 20 0;
+#X connect 4 0 3 0;
+#X connect 5 0 0 0;
+#X connect 6 0 5 0;
+#X connect 7 0 19 0;
+#X connect 8 0 25 0;
+#X connect 9 0 25 1;
+#X connect 12 0 11 0;
+#X connect 13 0 10 0;
+#X connect 15 0 14 0;
+#X connect 25 0 27 0;
+#X connect 26 0 25 2;
+#X connect 27 0 24 0;
+"

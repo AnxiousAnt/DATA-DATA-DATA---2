@@ -1,0 +1,55 @@
+#N canvas 424 32 694 737 10;
+#X obj 161 348 print;
+#X msg 30 111 3 \, 4 \, 5;
+#X msg 22 84 3 4 5;
+#X msg 25 322 3 \$1 5;
+#X floatatom 25 295 4 0 0 0 - - -;
+#X msg 161 320 \$2 \$1 5;
+#X msg 161 295 45 67;
+#X msg 239 295 45 67;
+#X floatatom 28 427 4 0 0 0 - - -;
+#X floatatom 63 427 4 0 0 0 - - -;
+#X floatatom 270 201 4 0 0 0 - - -;
+#X floatatom 164 204 4 0 0 0 - - -;
+#X obj 164 177 receive number9;
+#X obj 270 177 receive 9bis;
+#X obj 22 200 print;
+#X msg 43 138 3 \; number9 5 \; 9bis 45;
+#X text 86 111 <-- three separate messages;
+#X text 67 84 <-- one message: the list \, "3 4 5".;
+#X text 113 151 <-- three separate messages \, with three destinations.
+;
+#X msg 239 322 \; number9 \$1 \; 9bis \$2;
+#X obj 25 348 print;
+#X text 19 274 one variable:;
+#X text 166 274 two variables:;
+#X text 22 379 But to really exploit the possibilities using multiple
+variables \, you will need the "pack" object to get two or more values
+into the same message:;
+#X obj 28 509 print;
+#X obj 28 457 pack 0 0 0;
+#X floatatom 99 427 4 0 0 0 - - -;
+#X msg 28 483 cis \$1 \, boom \$2 \, bah \$3;
+#X text 94 457 <-- creation arguments to "pack" set the number of inlets.
+;
+#X text 19 227 You can use "\$1" \, "\$2" \, etc. \, as variables in
+messages. Send the message box a list whose elements supply the values.
+A number is just a list with one element.;
+#X text 19 37 In addition to using semicolons to separate messages
+\, you can use commas \, which continue a stream of messages to the
+same destination. Thus:;
+#X connect 1 0 14 0;
+#X connect 2 0 14 0;
+#X connect 3 0 20 0;
+#X connect 4 0 3 0;
+#X connect 5 0 0 0;
+#X connect 6 0 5 0;
+#X connect 7 0 19 0;
+#X connect 8 0 25 0;
+#X connect 9 0 25 1;
+#X connect 12 0 11 0;
+#X connect 13 0 10 0;
+#X connect 15 0 14 0;
+#X connect 25 0 27 0;
+#X connect 26 0 25 2;
+#X connect 27 0 24 0;

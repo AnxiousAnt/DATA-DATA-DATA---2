@@ -1,0 +1,58 @@
+#N canvas 434 130 679 691 10;
+#X obj 23 158 select 1 2;
+#X floatatom 23 130 0 0 0 0 - - -;
+#X obj 23 235 print select-1;
+#X obj 51 208 print select-2;
+#X obj 80 181 print select-3;
+#X floatatom 243 150 0 0 0 0 - - -;
+#X obj 243 183 pack;
+#X obj 243 207 route 1 2;
+#X obj 273 151 t b f;
+#X floatatom 273 127 0 0 0 0 - - -;
+#X obj 294 235 unpack;
+#X floatatom 243 235 0 0 0 0 - - -;
+#X floatatom 268 235 0 0 0 0 - - -;
+#X floatatom 294 258 0 0 0 0 - - -;
+#X floatatom 327 256 0 0 0 0 - - -;
+#X floatatom 24 330 0 0 0 0 - - -;
+#X obj 24 355 spigot;
+#X floatatom 57 330 0 0 0 0 - - -;
+#X floatatom 24 379 0 0 0 0 - - -;
+#X text 87 331 <-- nonzero to open;
+#X text 56 379 if open \, messages coming in at left are sent to output.
+;
+#X floatatom 171 440 0 0 0 0 - - -;
+#X floatatom 171 489 0 0 0 0 - - -;
+#X obj 171 465 moses 5;
+#X floatatom 210 489 0 0 0 0 - - -;
+#X text 20 283 You also get [spigot] which turns a flow of messages
+on and off (like the [gate] object in Max \, but with the inputs reversed):
+;
+#X text 21 405 And finally \, [moses] sends numbers to the left if
+they're less than the argument \, right otherwise:;
+#X text 20 38 Pd provides at least four objects for doing conditional
+computations. The [select] object tests its input against its argument(s)
+\, and outputs a "bang" when they match. The [route] object works similarly
+but also copies data. In other words \, [route] takes a list \, tests
+its first element \, and conditionally passes on the rest of the list.
+;
+#X connect 0 0 2 0;
+#X connect 0 1 3 0;
+#X connect 0 2 4 0;
+#X connect 1 0 0 0;
+#X connect 5 0 6 0;
+#X connect 6 0 7 0;
+#X connect 7 0 11 0;
+#X connect 7 1 12 0;
+#X connect 7 2 10 0;
+#X connect 8 0 6 0;
+#X connect 8 1 6 1;
+#X connect 9 0 8 0;
+#X connect 10 0 13 0;
+#X connect 10 1 14 0;
+#X connect 15 0 16 0;
+#X connect 16 0 18 0;
+#X connect 17 0 16 1;
+#X connect 21 0 23 0;
+#X connect 23 0 22 0;
+#X connect 23 1 24 0;

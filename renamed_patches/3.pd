@@ -1,0 +1,35 @@
+#N canvas 434 79 867 675 10;
+#X floatatom 210 123 0 0 0 0 - - -;
+#X floatatom 177 123 0 0 0 0 - - -;
+#X msg 177 71 5 6;
+#X floatatom 115 123 0 0 0 0 - - -;
+#X floatatom 47 123 0 0 0 0 - - -;
+#X text 19 37 Most Pd messages are just numbers or short lists of numbers:
+;
+#X msg 47 70 5;
+#X obj 47 98 + 9;
+#X obj 115 98 +;
+#X obj 177 98 unpack;
+#X msg 271 70 5;
+#X obj 271 122 print;
+#X obj 271 96 pack 34 78;
+#X msg 115 70 5 6;
+#X floatatom 165 345 0 0 0 0 - - -;
+#X obj 165 320 +;
+#X msg 165 271 1.2 3.4;
+#X msg 174 294 5 6;
+#X text 19 167 If you send a list to the leftmost inlet of an object
+with more than one inlet \, the items in the list are spread out over
+the inlets \, as seen in the 5+6 example above.;
+#X connect 2 0 9 0;
+#X connect 6 0 7 0;
+#X connect 7 0 4 0;
+#X connect 8 0 3 0;
+#X connect 9 0 1 0;
+#X connect 9 1 0 0;
+#X connect 10 0 12 0;
+#X connect 12 0 11 0;
+#X connect 13 0 8 0;
+#X connect 15 0 14 0;
+#X connect 16 0 15 0;
+#X connect 17 0 15 0;

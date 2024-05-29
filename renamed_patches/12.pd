@@ -1,0 +1,26 @@
+#N canvas 434 131 641 423 10;
+#X floatatom 22 194 0 0 0 0 - - -;
+#X floatatom 145 194 0 0 0 0 - - -;
+#X text 19 37 You can use dollarsigns in abstractions to get local
+sends and receives as shown here.;
+#X obj 160 101 dollarsign two;
+#X obj 22 166 r one-a;
+#X obj 145 167 r two-a;
+#X floatatom 84 194 0 0 0 0 - - -;
+#X floatatom 208 194 0 0 0 0 - - -;
+#X obj 84 166 r one-b;
+#X obj 208 167 r two-b;
+#X text 19 132 Open both copies to see what's happening...;
+#X floatatom 22 74 0 0 0 0 - - -;
+#X floatatom 103 74 0 0 0 0 - - -;
+#X floatatom 160 75 0 0 0 0 - - -;
+#X floatatom 241 75 0 0 0 0 - - -;
+#X obj 22 100 dollarsign one;
+#X connect 4 0 0 0;
+#X connect 5 0 1 0;
+#X connect 8 0 6 0;
+#X connect 9 0 7 0;
+#X connect 11 0 15 0;
+#X connect 12 0 15 1;
+#X connect 13 0 3 0;
+#X connect 14 0 3 1;

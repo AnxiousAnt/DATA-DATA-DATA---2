@@ -1,0 +1,59 @@
+#N canvas 434 48 706 717 10;
+#X msg 22 319 bang;
+#X floatatom 307 343 0 0 0 0 - - -;
+#X text 19 37 You can nest entire windows inside Pd boxes (and so on
+\, as deep as you wish.) There are two different ways to do it. First
+\, if you just want to add a room to the house \, so to speak \, type
+;
+#N canvas 17 300 422 119 sample-subpatch 0;
+#X text 39 43 this is a subpatch of the main patch.;
+#X restore 22 95 pd sample-subpatch;
+#N canvas 0 22 512 237 eager-adder 0;
+#X obj 22 17 inlet;
+#X obj 78 17 inlet;
+#X obj 22 121 outlet;
+#X obj 78 44 t b f;
+#X obj 22 89 +;
+#X text 15 165 Aside: this shows why \, in Pd and Max \, objects such
+as "+" only trigger on their left inlets: it's easy to build up from
+there \, but if more than one inlet were "hot" \, you wouldn't be able
+to change both of them without firing the calculation twice.;
+#X text 137 100 Because of the two inlets and the one outlet \, the
+containing box (int eh parent patch) has two inlets and one outlet.
+They respect the left-to-right order of the inlet and outlet objects
+in the subpatch.;
+#X text 137 11 This is a sample subpatch which maintains the sum of
+two inputs \, doing the computation when either input changes. IF it's
+the left input \, the "+" object takes care if it \; if the right \,
+the "trigger" object first gives the "+" the new value \, then "bangs"
+the right inlet to make "+" do the computation.;
+#X connect 0 0 4 0;
+#X connect 1 0 3 0;
+#X connect 3 0 4 0;
+#X connect 3 1 4 1;
+#X connect 4 0 2 0;
+#X restore 125 194 pd eager-adder;
+#X floatatom 125 167 0 0 0 0 - - -;
+#X floatatom 206 167 0 0 0 0 - - -;
+#X floatatom 125 222 0 0 0 0 - - -;
+#X obj 22 343 sendnumber 45 cookies;
+#X msg 161 319 bang;
+#X floatatom 374 343 0 0 0 0 - - -;
+#X obj 307 316 r cookies;
+#X obj 374 316 r pretzels;
+#X text 19 120 If you click on the box (in run mode) the subwindow
+appears. Click on the one below to see how you give a subpatch inlets
+and outlets.;
+#X text 141 95 <-- you can give the window a name as an argument;
+#X obj 161 343 sendnumber 67 pretzels;
+#X text 19 247 There is also a facility for making many copies of a
+patch which track any changes you make in the original. The subpatches
+are called abstractions. For example \, here's a simple abstraction
+that sends a number to a [receive] on command:;
+#X connect 0 0 8 0;
+#X connect 4 0 7 0;
+#X connect 5 0 4 0;
+#X connect 6 0 4 1;
+#X connect 9 0 15 0;
+#X connect 11 0 1 0;
+#X connect 12 0 10 0;

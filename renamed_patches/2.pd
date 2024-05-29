@@ -1,0 +1,39 @@
+#N canvas 434 62 812 823 10;
+#X floatatom 38 314 0 0 0 0 - - -;
+#X floatatom 149 315 0 0 0 0 - - -;
+#X floatatom 38 213 0 0 0 0 - - -;
+#X floatatom 180 164 0 0 0 0 - - -;
+#X floatatom 180 112 0 0 0 0 - - -;
+#X floatatom 215 112 0 0 0 0 - - -;
+#X obj 180 140 +;
+#X obj 38 277 *;
+#X obj 149 278 -;
+#X obj 38 236 trigger float float;
+#X text 82 133 hot inlet --->;
+#X text 215 133 <--- cold inlet;
+#X text 186 235 others) and copies its input to its;
+#X text 185 248 outlets \, in the requested forms \, in;
+#X text 185 261 right-to-left order. Hook it to two;
+#X text 185 274 inputs without crossing the wires and;
+#X text 186 287 you get the expected result. Cross the;
+#X text 181 300 wires and you get a memory effect.;
+#X text 186 222 of "bang" and "float" arguments (among;
+#X text 186 209 The [trigger] object takes any number;
+#X text 64 316 <-- square;
+#X text 177 316 <-- first difference;
+#X text 37 24 In Pd \, most objects carry out their functions when
+they get messages in their leftmost inlets. Other inlets are for storing
+values that can modify the next action. The [+] object below sends
+output only when the left-hand input changes. For this reason the leftmost
+inlet is called the "hot" \, or active \, inlet \, while the storage
+inlets are called "cold" inlets.;
+#X connect 2 0 9 0;
+#X connect 4 0 6 0;
+#X connect 5 0 6 1;
+#X connect 6 0 3 0;
+#X connect 7 0 0 0;
+#X connect 8 0 1 0;
+#X connect 9 0 7 0;
+#X connect 9 0 8 1;
+#X connect 9 1 7 1;
+#X connect 9 1 8 0;
