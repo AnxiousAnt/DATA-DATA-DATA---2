@@ -538,7 +538,7 @@ the time \, state 2 10% \, and state 3 20%.;
 #X connect 36 1 37 0;
 #X connect 37 0 21 0;
 #X connect 37 1 22 0;
-",,
+","Create a Pure Data patch that implements a simple three-valued Markov chain. Each time you click on the 'step' button, the previous output determines which of three random networks to invoke, each with a different probability distribution for the next value of 'state'. For example, if the state was 3, the next state will be 1 70% of the time, state 2 10%, and state 3 20%. Include a reset button to initialize the state.","This Pure Data patch implements a three-valued Markov chain using [random]. The patch includes a 'step' button that, when clicked, uses the current state to determine which of three random generators to invoke. Each generator has different probabilities for selecting the next state. For example, if the current state is 3, the next state will be 1 with a 70% probability, 2 with a 10% probability, and 3 with a 20% probability. The patch also includes a reset button that initializes the state to 1."
 21.pd,"#N canvas 434 124 669 682 10;
 #X floatatom 97 297 5 0 0 0 - - -;
 #X obj 118 217 f;
@@ -596,21 +596,7 @@ the time \, state 2 10% \, and state 3 20%.;
 #X connect 17 0 18 0;
 #X connect 18 0 11 0;
 #X connect 19 0 12 0;
-",,
-22.pd,"#N canvas 434 157 814 643 10;
-#X obj 115 131 r receive1;
-#X obj 201 131 r receive2;
-#X msg 22 85 clear \, add receive1 1 \, add 1000 receive1 0 \, add
-receive2 2 \, add 1000 receive2 0 \, add receive1 3 \, bang;
-#X obj 22 125 qlist;
-#X floatatom 115 156 0 0 0 0 - - -;
-#X floatatom 201 156 0 0 0 0 - - -;
-#X text 19 37 You can use [qlist] or [textfile] objects for sequencing.
-[qlist] is simpler to use than the (more versatile) [textfile].;
-#X connect 0 0 4 0;
-#X connect 1 0 5 0;
-#X connect 2 0 3 0;
-",,
+","Create a Pure Data patch that generates a random walk. The patch should include an on/off toggle to start and stop the random walk. The random walk should produce a value between 0 and 100, and if the value goes out of range, it should reflect back within the range. Additionally, include a mechanism to output the current value.","This Pure Data patch generates a random walk with values constrained between 0 and 100. It uses a metro object to control the step interval and a toggle to start and stop the random walk. The patch utilizes two [random] objects to generate random steps and a combination of arithmetic and [moses] objects to ensure the value stays within the 0-100 range, reflecting back if it goes out of bounds. The final value is output through a float atom."
 23.pd,"#N canvas 434 35 707 757 10;
 #X obj 140 261 until;
 #X obj 166 234 max 0;
@@ -659,7 +645,7 @@ until stopped through its right inlet (a ""conditional"" loop).;
 #X connect 10 0 8 1;
 #X connect 12 0 8 0;
 #X connect 13 0 7 1;
-",,
+","Create a Pure Data patch that demonstrates the use of the [until] object to perform a counting loop from 0 to 9, printing each number. Additionally, ensure there's a way to reset the counter to 0.","This Pure Data patch demonstrates a counting loop using the [until] object. When you send a 'bang' to the left inlet of [until], it starts counting from 0 and prints each number until it reaches 9, at which point it stops. The patch includes a reset mechanism to set the counter back to 0. Ensure you send a 'bang' to the right inlet of [until] to stop the loop, preventing the program from freezing."
 3.pd,"#N canvas 434 79 867 675 10;
 #X floatatom 210 123 0 0 0 0 - - -;
 #X floatatom 177 123 0 0 0 0 - - -;
@@ -695,7 +681,7 @@ the inlets \, as seen in the 5+6 example above.;
 #X connect 15 0 14 0;
 #X connect 16 0 15 0;
 #X connect 17 0 15 0;
-",,
+",Create a Pure Data patch that demonstrates how messages and lists of numbers can be used to perform arithmetic operations and how lists are unpacked and distributed to multiple inlets of objects.,"This Pure Data patch demonstrates the usage of messages and lists of numbers. It shows how individual numbers and lists can be sent to objects to perform arithmetic operations. The patch includes examples of sending a list to an object to distribute the items across multiple inlets and performing additions. Additionally, it illustrates how to pack and unpack lists of numbers for printing and further manipulation."
 4.pd,"#N canvas 413 76 894 817 10;
 #X msg 37 248 bang;
 #X obj 81 303 + 1;
@@ -722,7 +708,7 @@ message to see it work:;
 #X connect 7 0 6 0;
 #X connect 8 0 4 0;
 #X connect 9 0 1 0;
-",,
+",Create a Pure Data patch that includes two counters. One counter is incremented manually by clicking a 'bang' message. The other counter is incremented automatically using a metronome object [metro] that sends a 'bang' every 500 milliseconds.,"This Pure Data patch features two types of counters. The first counter increments manually each time you click the 'bang' message. The second counter uses a [metro] object set to 500 milliseconds to automatically send a 'bang' twice a second, incrementing the counter. The patch demonstrates basic usage of message triggering and the [metro] object for timed events."
 5.pd,"#N canvas 393 60 744 651 10;
 #X floatatom 127 209 0 0 0 0 - - -;
 #X obj 127 183 + 1;
@@ -752,7 +738,7 @@ message to see it work:;
 #X connect 6 1 7 0;
 #X connect 7 0 5 1;
 #X connect 8 0 4 0;
-",,
+",Create a Pure Data patch that counts from 1 to 10 using a [metro] object to increment the counter every 500 milliseconds. Ensure the counter stops automatically when it reaches 10 and includes a reset mechanism to start the counter from zero.,This Pure Data patch counts from 1 to 10 using a [metro] object set to 500 milliseconds to increment the counter. The patch automatically stops the metronome when the counter reaches 10. It also includes a reset mechanism that sets the counter back to zero before starting the metronome. This demonstrates a conditional stop for the metronome and initialization steps for resetting the counter.
 6.pd,"#N canvas 448 39 679 647 10;
 #X text 19 37 Besides the metronome \, there are three objects for
 dealing with time:;
@@ -795,7 +781,7 @@ way you can write deterministic algorithms dealing with time passage.
 #X connect 8 0 6 1;
 #X connect 10 0 12 0;
 #X connect 11 0 10 0;
-",,
+","Create a Pure Data patch that demonstrates the use of the [delay], [timer], and [pipe] objects for dealing with time. Include examples showing how to schedule events, measure elapsed time, and handle delayed events.","This Pure Data patch demonstrates three objects for dealing with time: [delay], [timer], and [pipe]. The [delay] object schedules an event for a future time in milliseconds. The [timer] object measures the elapsed time between bangs received in its right and left inlets. The [pipe] object handles delayed events, allowing for dynamic scheduling of multiple events. The patch includes examples to illustrate scheduling, measuring, and handling delays with these objects."
 7.pd,"#N canvas 400 37 728 674 10;
 #X msg 64 81 1;
 #X obj 81 176 + 1;
@@ -843,7 +829,7 @@ shouldn't do this:;
 #X connect 19 0 20 1;
 #X connect 20 0 21 0;
 #X connect 20 0 19 0;
-",,
+",Create a Pure Data patch that demonstrates depth-first message passing. Include an example where multiple objects receive messages in a specific order and another example where infinite recursion is avoided by ensuring the message chain terminates in a cold inlet.,"This Pure Data patch illustrates depth-first message passing. It includes a setup where messages are passed to multiple objects in a specific order, showing that the first message is processed first despite other objects appearing closer to the source. Another part of the patch demonstrates how to avoid infinite recursion by ensuring the message chain terminates in a cold inlet, preventing infinite loops. This patch helps understand message flow and how to manage recursion in Pure Data."
 8.pd,"#N canvas 370 59 847 721 10;
 #X floatatom 22 219 0 0 0 0 - - -;
 #X obj 22 192 receive crackers;
@@ -879,7 +865,7 @@ number of [send] and [receive] objects sharing the same name:;
 #X connect 10 0 4 0;
 #X connect 11 0 5 0;
 #X connect 12 0 6 0;
-",,
+","Create a Pure Data patch that demonstrates the use of [send] and [receive] objects to pass messages non-locally. Include examples of sending and receiving messages with the same name, as well as using a message box to send multiple messages simultaneously.","This Pure Data patch illustrates the use of [send] and [receive] objects for non-local message passing. It shows how messages sent to a [send] object appear at all corresponding [receive] objects with the same name. The patch includes an example where a message box uses the semicolon feature to send multiple messages to different [receive] objects simultaneously. Additionally, it demonstrates the shorthand notation for [send] and [receive] as [s] and [r]."
 9.pd,"#N canvas 424 32 694 737 10;
 #X obj 161 348 print;
 #X msg 30 111 3 \, 4 \, 5;
@@ -935,4 +921,4 @@ same destination. Thus:;
 #X connect 25 0 27 0;
 #X connect 26 0 25 2;
 #X connect 27 0 24 0;
-",,
+","Create a Pure Data patch that demonstrates the use of variables in messages, including the use of semicolons and commas to separate messages, and how to use the [pack] object to create messages with multiple variables.","This Pure Data patch shows how to use variables in messages and how to separate messages using semicolons and commas. The patch includes examples where messages contain variables such as \$1 and \$2, and how these variables can be dynamically replaced with values from incoming lists. It also demonstrates the use of the [pack] object to combine multiple values into a single message, allowing for more complex message constructions. This patch helps understand variable substitution and message formatting in Pure Data."

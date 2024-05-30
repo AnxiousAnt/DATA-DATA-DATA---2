@@ -1,0 +1,14 @@
+here's a pd patch:
+
+
+<patch>
+
+
+i'm creating a dataset to fine-tune an LLM to generate pd patch from natural language requests. i want you to do the following two things.
+- create a brief instruction message for each patch. i. e if i wanted to ask someone to create that particular patch for me how would i ask them?
+- lastly, create a response message, it should contain a crisp explanation of the patch
+
+respond in ONLY JSON format. use this template: template = {
+  "Instruction": "",
+  "Response": ""
+}
